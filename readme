@@ -37,6 +37,17 @@
 
         cd ~/xbinstall;
         sh install.sh;
+
+    7. 最后在cms中启用xblock：
+        登录cms,在课程中选择设置-高级设置-高级模块列表， 输入：
+
+		[
+  			 "firstxblock",
+   			 "pdf"
+		]
     
+    8. 尝试添加一个pdf文件。
+
+
 注意事项：
     需要在服务器上传一个静态图片文件，得到它的url，并把~/firstxblock/firstxblock/static/html/firstxblockStu.html中img的src设为该url地址。
