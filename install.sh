@@ -8,8 +8,9 @@ fi
 cd ~/;
 pip install pyPdf;
 
-git clone https://github.com/kenshin87/xbinstall.git;
 cd xbinstall;
+
+./setUrl.sh;
 
 mv firstxblock ../;
 mv pdfXBlock   ../;
@@ -19,4 +20,3 @@ cd ~/;
 pip install -e pdfXBlock;
 pip install -e firstxblock;
 
-./setUrl.sh;
