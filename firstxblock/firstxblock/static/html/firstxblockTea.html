@@ -1,0 +1,46 @@
+<div class="wrapper-comp-settings editor-with-buttons is-active" id="settings-tab">
+
+
+<ul class="list-input settings-list">
+
+
+<!--    <p class = "testing">测试用函数                                  --> 
+<!--        <span class='count'>{self.count}</span> (点击这里增加).      --> 
+<!--    </p>                                                           --> 
+
+     <li class="field comp-setting-entry is-set">
+        <div class="wrapper-comp-setting">
+           <label class="label setting-label" for="pdf_edit_display_name">PDF文件名</label>
+<!--main-->            <input class="input setting-input firstXBlockTeaDisplayName" value= {self.display_name} type="text">
+<!--main-->            <p><span class="tip setting-help noUploadWarning">请在这里输入PDF文件名，此文件名显示在学生系统的标题栏上。</span></p>
+<!--main-->            <input class="input setting-input systemGeneratedRandomNameTea" value= {self.systemGeneratedRandomName} type="text" hidden>
+        </div>
+    </li>
+
+
+
+
+    <li class= "field comp-setting-entry is-set">
+        <div class="wrapper-comp-setting">
+            <label class="label setting-label">请选择PDF文件</label>
+            <input class = "file-upload" type = file name = "file-upload">
+        </div>
+    </li>
+
+
+<div class="xblock-actions">
+    <ul>
+        <li class="action-item">
+            <a href="#" class="button action-primary save-button">保存</a></a>
+        </li>
+        <li class="action-item">
+            <a href="#" class="button cancel-button">取消</a>
+        </li>
+    </ul>
+</div>
+
+</ul>
+
+
+
+</div>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Title</title>
+</head>
+<script type="text/javascript" src = "https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<body>
+
+    <p>this is the html for file</p>
+
+                        <form action="." method="post" enctype="multipart/form-data">
+                            <input id = "file-upload" type = file name = "file-upload">
+                            <p><input type="submit" value="Add post"></p>
+                        </form>
+<button id = "ajaxFileServer" >test ajax FileServer</button>
+</body>
+
+
+<script type="text/javascript">
+
+
+$("#ajaxFileServer").click
+(
+    function()
+    {
+        var formDataInstance = new FormData();
+        formDataInstance.append("file-upload", $('#file-upload')[0].files[0]);
+        $.ajax
+        (
+            {
+                type: 'POST',
+                url: '.',
+                data: formDataInstance,
+                cache: false,
+                contentType: false,
+                processData: false,
+
+
+                success: function(result)
+                {
+                    alert(321);
+                }
+            }
+        )
+    }
+);
+
+
+
+
+</script>
+
+</html>

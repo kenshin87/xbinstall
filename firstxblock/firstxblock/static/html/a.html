@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<style>
+    #outer2 {
+        position: relative; 
+        height:400px; 
+        width:200px; 
+        border: 1px solid red; 
+    }
+    #inner2 {
+        float: right;
+        position:absolute; 
+        height:100px; 
+        width:20px; 
+        border: 1px solid black; 
+    }
+</style>
+
+<div id='outer2'>
+    <div id='inner2'>
+    </div>
+</div>
+</body>
+
+
+<script type="text/javascript" src = "jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+
+$(".zhenfengPdfLeft").click(function(){alert(1)});
+$(".zhenfengPdfRight").click(function(){alert(2)});
+
+</script>
+
+
+</html>

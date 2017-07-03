@@ -1,0 +1,42 @@
+这个文件夹可以安装如下2个xblock:
+
+    1. 可下载PDF
+    2. 不可下载PDF
+
+安装步骤：
+
+    1. 首先切到edxapp账号并进入根目录：
+
+        sudo su edxapp;
+        cd ~/;
+
+    2.  安装依赖:
+        pip install pyPdf; 
+
+    3.  克隆xbinstall.git并进入该目录：
+
+        git clone https://github.com/kenshin87/xbinstall.git;
+        cd xbinstall;
+
+    4.  移动其中的pdfXBlock， firstxblock到上一层目录; 移动filecms到/edx/app/edxapp/edx-platform/common/djangoapps/：
+        mv firstxblock ../;
+        mv pdfXBlock   ../;
+        mv filecms    /edx/app/edxapp/edx-platform/common/djangoapps/;
+
+    5.  回到根目录, 用pip -e参数安装2个xblock：
+
+        cd ~/;
+        pip install -e pdfXBlock;
+        pip install -e firstxblock;
+
+    6.  最后进入/edx/app/edxapp/edx-platform/cms/文件夹，在urls.py中增加一行路由：
+
+        url(r'^filecms/', include('filecms.urls')),
+
+        上面命令已经打包成install.sh的脚本，先切换到edxapp用户，然后用直接在xbinstall目录下面sh install.sh就可以。
+
+        cd ~/xbinstall;
+        sh install.sh;
+    
+注意事项：
+    需要在服务器上传一个静态图片文件，得到它的url，并把~/firstxblock/firstxblock/static/html/firstxblockStu.html中img的src设为该url地址。

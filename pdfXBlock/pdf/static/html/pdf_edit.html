@@ -1,0 +1,32 @@
+<div class="wrapper-comp-settings editor-with-buttons is-active" id="settings-tab">
+    <ul class="list-input settings-list">
+        
+         <li class="field comp-setting-entry is-set">
+            <div class="wrapper-comp-setting">
+                <label class="label setting-label" for="pdf_edit_display_name">Display Name</label>
+                <input class="input setting-input" id="pdf_edit_display_name" value="{{ display_name }}" type="text">
+            </div>
+            <span class="tip setting-help">This name appears in the horizontal navigation at the top of the page.</span>
+        </li>
+        <li class="field comp-setting-entry is-set">
+            <div class="wrapper-comp-setting">
+                <label class="label setting-label" for="pdf_edit_url">PDF URL</label>
+                <input class="input setting-input" id="pdf_edit_url" value="{{ url }}" type="text">
+            </div>
+            <span class="tip setting-help">在这里输入PDF的下载地址。首先暂时关闭这个页面，点击上方的“内容”链接，再选择“Files & Uploads”，在弹出的页面右上角，点击“上传新文件”，选择PDF文件并上传。最后会得到一个文件地址，格式是“/static/xxx.pdf”, 复制引号内的文字（不包括引号）填写到此处。</span>
+        </li>
+    </ul>
+    
+    <div class="xblock-actions">
+        <ul>
+            <li class="action-item">
+                <a href="#" class="button action-primary action-save">Save</a>
+            </li>
+            <li class="action-item">
+                <a href="#" class="button action-cancel">Cancel</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+

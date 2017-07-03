@@ -1,0 +1,63 @@
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+</head>
+
+
+<div class="firstxblock_block">
+
+
+    <div class="pdf-box">
+
+        <div class="pdf-nav">
+
+            <div class="pdf-pages">
+                <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                <div class="pdf-inp">
+                    <input type="text">
+                    <span>24</span>
+                </div>
+                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            </div>
+
+        </div>
+
+        <div class="pdf-imgbox">
+            <div class="imgbox">
+                <img src="" alt="">
+            </div>
+            <div class="pdf-pre">
+                <i class="fa fa-chevron-left fa-4x" aria-hidden="true"></i>
+            </div>
+            <div class="pdf-next">
+                <i class="fa fa-chevron-right fa-4x" aria-hidden="true"></i>
+            </div>
+        </div>
+
+    </div>
+
+
+    <p class = "testing">HappyXBlock: count is now
+        <span class='count'>{self.count}</span> (click me to increment).
+    </p>
+    <div>
+    <p>
+
+    
+    <p>current file is <b class = "systemGeneratedRandomName">{self.systemGeneratedRandomName}</b></p><!-- after successfully upload the file, the name should be here -->    
+    <input class = "inputsetname" value = "No" >
+    <button class = "buttonsetname">update name</button>
+       <button class = "printSystemGeneratedRandomName">randomName</button>  
+       <button class = "show">show</button>
+       <button class = "left" >left</button>
+       <button class = "right">right</button>
+       
+       <input class = "currentPage"   type = "button" value = {self.page}>
+       <input class = "totalPages"    type = "button" value = {self.totalPages}>
+    </p>
+        <p><img src="" width = "400px" height = "200px" >this is the image here</p>
+    </div>
+</div>
