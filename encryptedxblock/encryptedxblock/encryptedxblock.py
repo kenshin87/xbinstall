@@ -1,5 +1,5 @@
-#encoding=utf-8
-###TO-DO: Write a description of what this XBlock is."""
+# encoding=utf-8
+
 """
 This block allows to store the following variables:
     1. src of the image.
@@ -12,11 +12,10 @@ also, it offers the following functions:
     2. set_name: set    systemGeneratedRandomName
     3. set_page: set current page
     4. set_totalPages: set total pages
-    . renewFile: 
+    5. renewFile: renew file name and display name
 
 Just ingore other variables and functions for testing.
 """
-
 
 import pkg_resources
 
@@ -25,36 +24,41 @@ from xblock.fields import Scope, Integer, String
 from xblock.fragment import Fragment
 
 
-
-class FirstXBlock(XBlock):
+class EncryptedXBlock(XBlock):
 
     systemGeneratedRandomName = String(
-        default = "notUpload", scope = Scope.settings,
-        help = "name of the pdf file"
+        default="notUpload", scope=Scope.settings,
+        help="name of the pdf file"
     )
 
-    href = String(display_name="href",
-                  default="http://www.eliteu.cn/static/images/eliteu/index/step.png",
-                  scope=Scope.user_state,
-                  help="PDF file that will be shown in the XBlock")
+    href = String(
+        display_name="href",
+        default="http://www.eliteu.cn/static/images/eliteu/index/step.png",
+        scope=Scope.user_state,
+        help="PDF file that will be shown in the XBlock"
+                  )
 
-    display_name = String(display_name="Display Name",
-                          default=u"不可下载PDF",
-                          scope=Scope.settings,
-                          help="Name of the component in the edx-platform")
+    display_name = String(
+        display_name="Display Name",
+        default=u"不可下载PDF",
+        scope=Scope.settings,
+        help="Name of the component in the edx-platform"
+        )
 
     count = Integer(
-        default= 0, scope=Scope.user_state,
+        default=0,
+        scope=Scope.user_state,
         help="total pages",
     )
-
 
     totalPages = Integer(
-        default= 0, scope=Scope.settings,
+        default=0,
+        scope=Scope.settings,
         help="total pages",
     )
-    page       = Integer(
-        default= 0, scope=Scope.user_state,
+    page = Integer(
+        default=0,
+        scope=Scope.user_state,
         help="the current page",
     )
 
@@ -64,18 +68,16 @@ class FirstXBlock(XBlock):
         return data.decode("utf8")
 
     # TO-DO: change this view to display your data your own way.
-
-
     def student_view(self, context=None):
-
-        #The primary view of the FirstXBlock, shown to students
-        #when viewing courses.
-
-        html = self.resource_string("static/html/firstxblockStu.html")
+        """
+        The primary view of the EncryptedXBlock, shown to students
+        when viewing courses.
+        """
+        html = self.resource_string("static/html/encryptedxblockStu.html")
         frag = Fragment(html.format(self=self))
-        frag.add_css(self.resource_string("static/css/firstxblock.css"))
-        frag.add_javascript(self.resource_string("static/js/src/firstxblockStu.js"))
-        frag.initialize_js('FirstXBlock')
+        frag.add_css(self.resource_string("static/css/encryptedxblock.css"))
+        frag.add_javascript(self.resource_string("static/js/src/encryptedxblockStu.js"))
+        frag.initialize_js('EncryptedXBlock')
         return frag
 
     def studio_view(self, context=None):
@@ -83,11 +85,11 @@ class FirstXBlock(XBlock):
         The primary view of the paellaXBlock, shown to students
         when viewing courses.
         """
-        html = self.resource_string("static/html/firstxblockTea.html")
+        html = self.resource_string("static/html/encryptedxblockTea.html")
         frag = Fragment(html.format(self=self))
-        frag.add_css(self.resource_string("static/css/firstxblock.css"))
-        frag.add_javascript(self.resource_string("static/js/src/firstxblockTea.js"))
-        frag.initialize_js('FirstXBlock')
+        frag.add_css(self.resource_string("static/css/encryptedxblock.css"))
+        frag.add_javascript(self.resource_string("static/js/src/encryptedxblockTea.js"))
+        frag.initialize_js('EncryptedXBlock')
         return frag
 
     @XBlock.json_handler
@@ -96,27 +98,23 @@ class FirstXBlock(XBlock):
         self.count += 1
         return {"count": self.count}
 
-
     # in js, we start by getting the firstPage and initialize the total page
     @XBlock.json_handler
     def get_name(self, data, suffix=''):
-        return {"systemGeneratedRandomName":self.systemGeneratedRandomName}
-
+        return {"systemGeneratedRandomName": self.systemGeneratedRandomName}
 
     # in js, we start by getting the firstPage and initialize the total page
     @XBlock.json_handler
     def set_page(self, data, suffix=''):
-        totalPages  = int(data["totalPages"])
+        totalPages = int(data["totalPages"])
         print totalPages
         self.totalPages = totalPages
-        return {"result":"successful"}
+        return {"result": "successful"}
 
     @XBlock.json_handler
     def get_totalPages(self, data, suffix=''):
         print "enter total"
         return {"totalPages": self.totalPages}
-
-
 
     @XBlock.json_handler
     def get_page(self, data, suffix=''):
@@ -128,59 +126,32 @@ class FirstXBlock(XBlock):
         # Just to show data coming in...
         if newPage >= 0 and newPage < self.totalPages:
             self.page = newPage
-
         self.count += 1
-        #return {"count": self.count, "page":page}
-        print self.page
+        # print self.page
         return {"count": self.count, "page": self.page, "totalPages": self.totalPages}
-
-
-    @XBlock.json_handler
-    def initiatePage(self, data, suffix=''):
-        """
-        An example handler, which increments the data.
-        """
-
-        print 123466
-        assert data["fileName"] == "document"
-
-        # Here need to check how many file are there inside the server
-        pages = 15
-        self.totalPages = pages
-        return { "page": pages}
-
 
     @XBlock.json_handler
     def renewFile(self, data, suffix=''):
-
         self.systemGeneratedRandomName = data["systemGeneratedRandomName"]
-        self.display_name              = data["displayName"]
+        self.display_name = data["displayName"]
         # Here need to check how many file are there inside the server
-        return { 
-        "systemGeneratedRandomName": self.systemGeneratedRandomName, 
-        "displayName": self.display_name 
+        return {
+            "systemGeneratedRandomName": self.systemGeneratedRandomName,
+            "displayName": self.display_name
         }
 
-#    @XBlock.json_handler
-#    def updateFile(self, data, suffix=''):
-#        return { "systemGeneratedRandomName": self.systemGeneratedRandomName}
-
-
-    # TO-DO: change this to create the scenarios you'd like to see in the
-    # workbench while developing your XBlock.
     @staticmethod
     def workbench_scenarios():
         """A canned scenario for display in the workbench."""
         return [
-            ("FirstXBlock",
-             """<firstxblock/>
+            ("EncryptedXBlock",
+             """<encryptedxblock/>
              """),
-            ("Multiple FirstXBlock",
+            ("Multiple EncryptedXBlock",
              """<vertical_demo>
-                <firstxblock/>
-                <firstxblock/>
-                <firstxblock/>
+                <encryptedxblock/>
+                <encryptedxblock/>
+                <encryptedxblock/>
                 </vertical_demo>
              """),
         ]
-
