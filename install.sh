@@ -9,14 +9,13 @@ cd ~/;
 pip install pyPdf;
 
 cd xbinstall;
-
 ./setUrl.sh;
 
-mv firstxblock ../;
-mv pdfXBlock   ../;
+mv encryptedxblock ../;
+mv pdfXBlock       ../;
 mv filecms    /edx/app/edxapp/edx-platform/common/djangoapps/;
 
 cd ~/;
 pip install -e pdfXBlock;
-pip install -e firstxblock;
+pip install -e encryptedxblock;
 

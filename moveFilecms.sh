@@ -1,1 +1,0 @@
-mv filecms /edx/app/edxapp/edx-platform/common/djangoapps;

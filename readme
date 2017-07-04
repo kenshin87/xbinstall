@@ -18,8 +18,8 @@
         git clone https://github.com/kenshin87/xbinstall.git;
         cd xbinstall;
 
-    4.  移动其中的pdfXBlock， firstxblock到上一层目录; 移动filecms到/edx/app/edxapp/edx-platform/common/djangoapps/：
-        mv firstxblock ../;
+    4.  移动其中的pdfXBlock， encryptedxblock到上一层目录; 移动filecms到/edx/app/edxapp/edx-platform/common/djangoapps/：
+        mv encryptedxblock ../;
         mv pdfXBlock   ../;
         mv filecms    /edx/app/edxapp/edx-platform/common/djangoapps/;
 
@@ -27,22 +27,24 @@
 
         cd ~/;
         pip install -e pdfXBlock;
-        pip install -e firstxblock;
+        pip install -e encryptedxblock;
 
     6.  最后进入/edx/app/edxapp/edx-platform/cms/文件夹，在urls.py中增加一行路由：
 
         url(r'^filecms/', include('filecms.urls')),
 
-        上面命令已经打包成install.sh的脚本，先切换到edxapp用户，然后用直接在xbinstall目录下面sh install.sh就可以。
+        上面1-6所有命令已经打包成install.sh的脚本，先切换到edxapp用户，然后克隆xbinstall.git, 进入xbinstall目录下面sh install.sh就可以:
 
+        git clone https://github.com/kenshin87/xbinstall.git;
         cd ~/xbinstall;
+
         sh install.sh;
 
     7. 最后在cms中启用xblock：
         登录cms,在课程中选择设置-高级设置-高级模块列表， 输入：
 
 		[
-  			 "firstxblock",
+  			 "encryptedxblock",
    			 "pdf"
 		]
     
@@ -50,4 +52,4 @@
 
 
 注意事项：
-    需要在服务器上传一个静态图片文件，得到它的url，并把~/firstxblock/firstxblock/static/html/firstxblockStu.html中img的src设为该url地址。
+    需要在服务器上传一个静态图片文件，得到它的url，并把~/encryptedxblock/encryptedxblock/encryptedxblock.py中href设为该url地址。
