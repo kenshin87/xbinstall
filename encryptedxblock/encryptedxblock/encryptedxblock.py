@@ -20,8 +20,9 @@ Just ingore other variables and functions for testing.
 import pkg_resources
 
 from xblock.core import XBlock
-from xblock.fields import Scope, Integer, String
+from xblock.fields import Scope, Integer, String, Boolean
 from xblock.fragment import Fragment
+from django.template import Context, Template
 
 
 class EncryptedXBlock(XBlock):
@@ -40,7 +41,7 @@ class EncryptedXBlock(XBlock):
 
     display_name = String(
         display_name="Display Name",
-        default=u"不可下载PDF",
+        default=u"文档预览",
         scope=Scope.settings,
         help="Name of the component in the edx-platform"
         )
@@ -50,6 +51,11 @@ class EncryptedXBlock(XBlock):
         scope=Scope.user_state,
         help="total pages",
     )
+
+    allow_download = Boolean(display_name="允许下载",
+        default=True,
+        scope=Scope.settings,
+        help="Display a download button for this PDF.")
 
     totalPages = Integer(
         default=0,
@@ -62,10 +68,27 @@ class EncryptedXBlock(XBlock):
         help="the current page",
     )
 
+    presufFileName = String(
+        display_name="presufFileName",
+        default="",
+        scope=Scope.settings,
+        help="presufFileName"
+        )
+
     def resource_string(self, path):
         """Handy helper for getting resources from our kit."""
         data = pkg_resources.resource_string(__name__, path)
         return data.decode("utf8")
+
+
+
+    def render_template(self, htmlPath, context={}):
+        """
+        Evaluate a template by resource path, applying the provided context
+        """
+        template_str = unicode(pkg_resources.resource_string(__name__, htmlPath))
+        return Template(template_str).render(Context(context))
+
 
     # TO-DO: change this view to display your data your own way.
     def student_view(self, context=None):
@@ -73,8 +96,14 @@ class EncryptedXBlock(XBlock):
         The primary view of the EncryptedXBlock, shown to students
         when viewing courses.
         """
-        html = self.resource_string("static/html/encryptedxblockStu.html")
+
+        context = {"allow_download":self.allow_download, "presufFileName":self.presufFileName}
+
+
+        #html = self.resource_string("static/html/encryptedxblockStu.html")
+        html = self.render_template('static/html/encryptedxblockStu.html', context)
         frag = Fragment(html.format(self=self))
+
         frag.add_css(self.resource_string("static/css/encryptedxblock.css"))
         frag.add_javascript(self.resource_string("static/js/src/encryptedxblockStu.js"))
         frag.initialize_js('EncryptedXBlock')
@@ -134,10 +163,14 @@ class EncryptedXBlock(XBlock):
     def renewFile(self, data, suffix=''):
         self.systemGeneratedRandomName = data["systemGeneratedRandomName"]
         self.display_name = data["displayName"]
+        self.presufFileName = data["presufFileName"]
+        self.allow_download = data["allowDownload"]
         # Here need to check how many file are there inside the server
         return {
             "systemGeneratedRandomName": self.systemGeneratedRandomName,
-            "displayName": self.display_name
+            "displayName": self.display_name,
+            "presufFileName": self.presufFileName,
+            "allowDownload":self.allow_download,
         }
 
     @staticmethod

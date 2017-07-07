@@ -1,16 +1,20 @@
-这个文件夹可以安装如下2个xblock:
+    这个文件夹可以安装如下的xblock:
+        文档浏览
+它可以提供包括ppt，word(.doc, .docx), ppt(.ppt, .pptx)，excel(.xls, .xlsx)的浏览功能。
 
-    1. 可下载PDF
-    2. 不可下载PDF
+    安装步骤：
 
-安装步骤：
+    0. 安装系统依赖：
+        
+        //edx盒子本身是ubuntu的官方更新源，可以改成国内源，安装会快很多
+        sudo apt-get update  && apt-get install libreoffice fonts-wqy-zenhei fonts-arphic-bkai00mp fonts-arphic-bsmi00lp fonts-arphic-gbsn00lp fonts-arphic-gkai00mp fonts-arphic-ukai fonts-arphic-uming fonts-cns11643-kai fonts-cns11643-sung fonts-cwtex-fs fonts-cwtex-heib fonts-cwtex-kai fonts-cwtex-ming fonts-cwtex-yen
 
-    1. 首先切到edxapp账号并进入根目录：
+    1. 切到edxapp账号并进入根目录：
 
         sudo su edxapp;
         cd ~/;
 
-    2.  安装依赖:
+    2.  安装python依赖:
         pip install pyPdf; 
 
     3.  克隆xbinstall.git并进入该目录：
@@ -18,15 +22,13 @@
         git clone https://github.com/kenshin87/xbinstall.git;
         cd xbinstall;
 
-    4.  移动其中的pdfXBlock， encryptedxblock到上一层目录; 移动filecms到/edx/app/edxapp/edx-platform/common/djangoapps/：
+    4.  移动其中的encryptedxblock到上一层目录; 移动filecms到/edx/app/edxapp/edx-platform/common/djangoapps/：
         mv encryptedxblock ../;
-        mv pdfXBlock   ../;
-        mv filecms    /edx/app/edxapp/edx-platform/common/djangoapps/;
+        mv filecms  /edx/app/edxapp/edx-platform/common/djangoapps/;
 
-    5.  回到根目录, 用pip -e参数安装2个xblock：
+    5.  回到根目录, 用pip -e参数安装该xblock：
 
         cd ~/;
-        pip install -e pdfXBlock;
         pip install -e encryptedxblock;
 
     6.  最后进入/edx/app/edxapp/edx-platform/cms/文件夹，在urls.py中增加一行路由：
@@ -44,12 +46,12 @@
         登录cms,在课程中选择设置-高级设置-高级模块列表， 输入：
 
 		[
-  			 "encryptedxblock",
-   			 "pdf"
+  			 "encryptedxblock"
 		]
     
-    8. 尝试添加一个pdf文件。
+    8. 尝试添加一个文档文件。
 
 
 注意事项：
     需要在服务器上传一个静态图片文件，得到它的url，并把~/encryptedxblock/encryptedxblock/encryptedxblock.py中href设为该url地址。
+    另外，在js中的cms地址也要按照服务器发布时的地址，同时更改。

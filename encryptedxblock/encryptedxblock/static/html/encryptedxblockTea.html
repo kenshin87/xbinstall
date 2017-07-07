@@ -8,18 +8,31 @@
 
      <li class="field comp-setting-entry is-set">
         <div class="wrapper-comp-setting">
-           <label class="label setting-label" for="firstxblockTeaDisplayName_name">PDF文件名</label>
+           <label class="label setting-label" for="firstxblockTeaDisplayName_name">文件名</label>
 <!--main-->            <input class="input setting-input firstXBlockTeaDisplayName" value= {self.display_name} type="text">
-<!--main-->            <p><span class="tip setting-help noUploadWarning">请在这里输入PDF文件名，此文件名显示在学生系统的标题栏上。</span></p>
+<!--main-->            <p><span class="tip setting-help noFileNameWarning"></span></p>
 <!--main-->            <input class="input setting-input systemGeneratedRandomNameTea" value= {self.systemGeneratedRandomName} type="text" hidden>
         </div>
     </li>
 
     <li class= "field comp-setting-entry is-set">
         <div class="wrapper-comp-setting">
-            <label class="label setting-label">请选择PDF文件</label>
+            <label class="label setting-label">请选择文档文件</label>
             <input class = "file-upload" type = file name = "file-upload">
+<!--main--> <p><span class="tip setting-help noUploadWarning">只支持ppt, excel, word, pdf文件的上传。</span></p>            
         </div>
+    </li>
+
+    <li class="field comp-setting-entry is-set">
+        <div class="wrapper-comp-setting">
+            <label class="label setting-label" for="pdf_edit_allow_download">PDF Download Allowed</label>
+            <select class="input setting-input firstxblockAllowDownload">
+                <option value="True"   >可下载</option>
+                <option value="False"  >不可下载</option>
+            </select>
+
+        </div>
+        <span class="tip setting-help">Display a download button for this PDF.</span>
     </li>
 
     <div class="xblock-actions">

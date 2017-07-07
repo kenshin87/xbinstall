@@ -172,10 +172,7 @@ def upload(request, dictonary = {}):
         allowed_upload_file_types = settings.ALLOWED_UPLOAD_FILE_TYPE
         max_upload_file_size = settings.MAX_UPLOAD_FILE_SIZE
 
-
         print settings.MEDIA_ROOT
-
-
 
         try:
             # TODO authorization
@@ -193,9 +190,29 @@ def upload(request, dictonary = {}):
             )
 
             # above was written by previous colleague. If it can reach this point, it means that the file was uploaded.
-            # following is for cutting the pdf and creating a folder to store all the jpgs
+            # At this point we have 1 variable of "new_file_name"
+
 
             assert len(settings.MEDIA_ROOT) > 0
+
+            # At this point the file name must be "name.type", so it has prefix and suffix
+            fileType = new_file_name.split(".")[1]
+            if fileType != "pdf":
+                randomTypeFullNameWithPath = os.path.join(settings.MEDIA_ROOT, new_file_name)
+                convertStatus =  libreofficeConvert(randomTypeFullNameWithPath, settings.MEDIA_ROOT)
+                assert convertStatus == 0
+
+            pdfName = os.path.join(settings.MEDIA_ROOT, base_file_name+".pdf")
+
+            if not pdfValidPage(pdfName):
+                print "not valid pdf"
+                dic = {
+                    'result':
+                        {
+                            'msg': "pdf too many pages",
+                        }
+                }
+                return HttpResponse(json.dumps(dic), content_type="text/plain", status=400)
 
             # Directory is:
             #     jpgsParentFolder =    /edx/var/edxapp/uploads/nameOfJpg
@@ -210,20 +227,9 @@ def upload(request, dictonary = {}):
             except:
                 raise Exception, "unable to create folder."
 
-            pdfName = os.path.join(settings.MEDIA_ROOT, base_file_name+".pdf")
-
-            if not pdfValidPage(pdfName):
-                print "not valid pdf"
-                dic = {
-                    'result':
-                        {
-                            'msg': "pdf too many pages",
-                        }
-                }
-                return HttpResponse(json.dumps(dic), content_type="text/plain", status=400)
-
             # converting the pdf to jpgs.
             # a border case is when there is only 1 page, then the name will not be regular that we need to change the name.
+            # following is for cutting the pdf and creating a folder to store all the jpgs
             successfulFlag = pdfToJpg(pdfName, jpgsFullPath)
             assert(successfulFlag) == 0
 
@@ -293,3 +299,21 @@ def pdfValidPage(fileName):
     else:
         os.remove(fileName)
         return False
+
+import subprocess
+def libreofficeConvert(randomTypeFullNameWithPathPara, mediaRootPara):
+    try:
+        convertSuccessFlag = subprocess.call(
+        [
+            "lowriter",
+            "--convert-to",
+            "pdf",
+            randomTypeFullNameWithPathPara,
+            "--outdir",
+            mediaRootPara
+        ]
+    )
+    except:
+        convertSuccessFlag = 1
+    return convertSuccessFlag
+

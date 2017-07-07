@@ -28,25 +28,35 @@ function EncryptedXBlock(runtime, element) {
 
         function ajaxUpload (eventObject)
         {
-            console.log("enter ajax upload");
-
             // make sure a file is selectd
             if ( $(".file-upload", element)[0].files.length == 0 )
             {
                 eventObject.preventDefault();
                 $(".noUploadWarning", element).css("background-color", "#f11")
-                $(".noUploadWarning", element).text("请先点击“选择文件”按钮选择一个pdf文件");
+                $(".noUploadWarning", element).text("请先点击“选择文件”按钮选择一个文档文件");
+            }
+            else if ( $(".firstXBlockTeaDisplayName", element).val() == "文档预览" )
+            {
+                eventObject.preventDefault();
+                $(".noFileNameWarning", element).css("background-color", "#f11")
+                $(".noFileNameWarning", element).text("请先更改文档的文件名");
             }
 
             // when there is a file
             else 
             {    
-                var nameList = $(".file-upload", element)[0].files[0].name.split("."); 
-                if (  nameList.length < 2 || nameList[nameList.length - 1].toLowerCase() != "pdf" )
+                var nameList  = $(".file-upload", element)[0].files[0].name.split(".");
+                var available = {"pdf":"pdf", "xls":"xls", "xlsx":"xlsx", "doc":"doc", "docx":"docx", "ppt":"ppt", "pptx":"pptx"}; 
+
+                if (
+                        nameList.length < 2
+                            ||  
+                        (!(nameList[nameList.length - 1].toLowerCase() in available))
+                   )
                 {
                     eventObject.preventDefault();
                     $(".noUploadWarning", element).css("background-color", "#f11")
-                    $(".noUploadWarning", element).text("只支持pdf文件的上传！");
+                    $(".noUploadWarning", element).text("只支持ppt, excel, word, pdf文件的上传！");
                 }
                 else
                 {
@@ -80,7 +90,7 @@ function EncryptedXBlock(runtime, element) {
                             error: function(response)
                             {
                                 $(".noUploadWarning", element).css("background-color", "#f11");
-                                $(".noUploadWarning", element).text("最大只支持100页以下的PDF文件的上传！");
+                                $(".noUploadWarning", element).text("最大只支持100页以下文档的上传！");
                                 runtime.notify('error', {msg: "文件上传失败，请联系网站管理员。"})
                             }
                         }
@@ -99,18 +109,23 @@ function EncryptedXBlock(runtime, element) {
             console.log("enter changeName");
             runtime.notify('save', {state: 'start'});
             var jsonParsedResponse = JSON.parse(response);
-            var systemGeneratedRandomName  = jsonParsedResponse["result"]["file_url"];
+            
+            var presufFileName             = jsonParsedResponse["result"]["file_url"];
 
             var postUrl = runtime.handlerUrl(element, "renewFile");
 
-            var preSystemGeneratedRandomName = systemGeneratedRandomName.replace(".pdf", "");
+            var preSystemGeneratedRandomName = presufFileName.substring(0,presufFileName.lastIndexOf("."));
+
             var firstXBlockTeaDisplayName    = $(".firstXBlockTeaDisplayName", element).val();
 
+            var allowDownload = $(".firstxblockAllowDownload", element).val();
 
             var jsonData = JSON.stringify(
                     {
                         "systemGeneratedRandomName": preSystemGeneratedRandomName, 
                         "displayName": firstXBlockTeaDisplayName,
+                        "presufFileName":presufFileName,
+                        "allowDownload":allowDownload,
                     }
                 );
 

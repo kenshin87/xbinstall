@@ -32,7 +32,13 @@
             </div>
         </div>
     </div>
-
+       
+       <!--here is pure django data. We don't want to mix the template with--> 
+    <div>       
+        {% if  allow_download %}
+             <a href="http://127.0.0.1:8001/filecms/download/{{ presufFileName }}" download>下载文件</a>
+        {% endif %}
+    </div>
     <div>
         <input class = "systemGeneratedRandomNameStu" value = {self.systemGeneratedRandomName} hidden><!-- after successfully uploading the file, the name should be here -->    
     </div>
