@@ -16,7 +16,7 @@ cd ~/;
 pip install pyPdf;
 cd xbinstall;
 
-#./setUrl.sh;
+./setUrl.sh;
 
 mv encryptedxblock ../;
 mv filecms    /edx/app/edxapp/edx-platform/common/djangoapps/;
