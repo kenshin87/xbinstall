@@ -35,7 +35,7 @@
 
         url(r'^filecms/', include('filecms.urls')),
 
-        上面1-6所有命令已经打包成install.sh的脚本，先切换到edxapp用户，然后克隆xbinstall.git, 进入xbinstall目录下面sh install.sh就可以:
+        上面1-6所有命令已经打包成install.sh的脚本，直接clone xbinstall.git, 进入xbinstall目录下面sh install.sh就可以:
 
         git clone https://github.com/kenshin87/xbinstall.git;
         cd ~/xbinstall;
