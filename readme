@@ -35,21 +35,21 @@
 
         url(r'^filecms/', include('filecms.urls')),
 
-        上面1-6所有命令已经打包成install.sh的脚本，直接clone xbinstall.git, 进入xbinstall目录下面sh install.sh就可以:
+        上面0-6所有命令已经打包成install.sh的脚本，直接clone xbinstall.git, 进入xbinstall目录下面sh install.sh就可以:
 
         git clone https://github.com/kenshin87/xbinstall.git;
         cd ~/xbinstall;
 
         sh install.sh;
 
-    7. 最后在cms中启用xblock：
-        登录cms,在课程中选择设置-高级设置-高级模块列表， 输入：
+    7. 最后在需要在cms中启用xblock：
+        登录cms,在准备启用该xblock的课程中，选择：“设置-高级设置-高级模块列表”， 在最下面xblock一栏输入：
 
 		[
   			 "encryptedxblock"
 		]
     
-    8. 尝试添加一个文档文件。
+    8. 尝试添加一个文档文件（pdf， word等）。
 
 
 注意事项：
