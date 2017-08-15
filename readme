@@ -1,12 +1,42 @@
     这个文件夹可以安装如下的xblock:
-        文档浏览
-它可以提供包括ppt，word(.doc, .docx), ppt(.ppt, .pptx)，excel(.xls, .xlsx)的浏览功能。
+        文档浏览（encrptedxblock）
 
-    安装步骤：
+    它可以提供包括ppt，word(.doc, .docx), ppt(.ppt, .pptx)，excel(.xls, .xlsx)的浏览功能。
+
+
+一.安装
+
+  A. 曾经安装过该block：
+    为避免任何可能的冲突，可以先删除旧版本再安装该最新版本。彻底删除方法如下：
+    
+    1. 用edxapp账户进入encrptedxblock目录：
+
+        sudo su edxapp;
+        cd /edx/app/edxapp;
+
+    2. 删除encrptedxblock/
+        
+        rm -rf encrptedxblock/;
+        
+    3. 删除common.djangoapps.filecms这个app:
+
+        cd /edx/app/edxapp/edx-platform/common/djangoapps/;
+        rm -rf filecms/;
+
+    4. 打开/edx/app/edxapp/edx-plarform/cms/urls.py， 并删除该urls.py文件中的对应url：
+
+        "url(r'^filecms/', include('filecms.urls')),\n"
+    
+    5. 在cms的相应课程里，删除“高级设置”中的“encrptedxblock”一行。
+
+    6. 彻底删除完毕。
+
+
+  B. 全新安装/已彻底删除后的重新安装
 
     0. 安装系统依赖：
         
-        //edx盒子本身是ubuntu的官方更新源，可以改成国内源，安装会快很多
+        //先安装中文支持以及转换插件：
         sudo apt-get update  && apt-get install libreoffice fonts-wqy-zenhei fonts-arphic-bkai00mp fonts-arphic-bsmi00lp fonts-arphic-gbsn00lp fonts-arphic-gkai00mp fonts-arphic-ukai fonts-arphic-uming fonts-cns11643-kai fonts-cns11643-sung fonts-cwtex-fs fonts-cwtex-heib fonts-cwtex-kai fonts-cwtex-ming fonts-cwtex-yen
 
     1. 切到edxapp账号并进入根目录：
@@ -35,21 +65,15 @@
 
         url(r'^filecms/', include('filecms.urls')),
 
-        上面1-6所有命令已经打包成install.sh的脚本，直接clone xbinstall.git, 进入xbinstall目录下面sh install.sh就可以:
-
-        git clone https://github.com/kenshin87/xbinstall.git;
-        cd ~/xbinstall;
-
-        sh install.sh;
-
-    7. 最后在cms中启用xblock：
-        登录cms,在课程中选择设置-高级设置-高级模块列表， 输入：
+    7. 最后在需要在cms中启用xblock：
+        登录cms,在准备启用该xblock的课程中，选择：“设置-高级设置-高级模块列表”， 在最下面xblock一栏输入：
 
 		[
   			 "encryptedxblock"
 		]
     
-    8. 尝试添加一个文档文件。
+    8. 尝试添加一个文档文件（pdf，word，ppt等）。
+
 
 
 注意事项：
