@@ -74,8 +74,6 @@
     
     8. 尝试添加一个文档文件（pdf，word，ppt等）。
 
-
-
 注意事项：
     1. 需要在服务器上传一个静态图片文件，得到它的url，并把~/encryptedxblock/encryptedxblock/encryptedxblock.py中href设为该url地址。
     2. 另外，在js中的cms地址也要按照服务器发布时的地址，同时更改。
