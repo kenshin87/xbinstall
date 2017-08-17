@@ -277,34 +277,30 @@ function EncryptedXBlock(runtime, element) {
             }
         }
 
-    // Following are testing code, can delete
-
-    function updateCount(response) {
-        $(".count", element).text(response.count);
-    }
-
-    var handlerUrl = runtime.handlerUrl(element, "increment_count");
-
-    $(".testing", element).click(
-        function(eventObject) 
+        function testCount(eventObject) 
         {
+            var handlerUrl = runtime.handlerUrl(element, "increment_count");
+
             $.ajax
             (
                 {
                     type: "POST",
                     url: handlerUrl,
                     data: JSON.stringify({"hello": "world"}),
-                    success: updateCount
+                    success: function(responseData)
+                    {
+                        window.bbb = responseData;
+                        console.log("right situation");
+                    }
                 }
             );
         }
-    );
+
 
     $(function ($) {
         /* Here"s where you"d do things on page load. */
 
       setCMS_ROOT_URL();
-
 
     });
 }
