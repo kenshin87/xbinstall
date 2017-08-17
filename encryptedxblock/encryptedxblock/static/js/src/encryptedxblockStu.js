@@ -1,11 +1,6 @@
 /* Javascript for EncryptedXBlock. */
 function EncryptedXBlock(runtime, element) {
 
-	    var global = {};
-
-	    // This will be the basic address that we can send ajax request.
-	    var baseUrl;
-
     // PagePara is the value that is shown on client's screen. So need to be changed.
     // Return value of this function is the real zeroIndex index of the desired page.
     function getZeroIndexPage(pagePara, totalPagesPara) //totalPagesPara here is shown in web page
@@ -32,36 +27,16 @@ function EncryptedXBlock(runtime, element) {
     {
         $('.firstXBlockCurrentPage', element)[0].value = response.page + 1;            
     }
-    function togglePdf(a)
-    {
-        $(a).hover
-        (
-            function()
-            {
-                $(this).children("i").show()
-            },
-            function()
-            {
-                $(this).children("i").hide();
-            }
-        )
-    }
 
-    function clickDiv(classNameOfDiv, functionNamePara)
-    {
-        $(classNameOfDiv, element).click
-        (
-            functionNamePara
-        );
-    }
+    var global = {};
+        global.root    = "http://127.0.0.1:8001"; 
+        global.baseUrl = "http://127.0.0.1:8001/filecms/image/";
 
+    // This will be the basic address that we can send ajax request.
+    var baseUrl = global.baseUrl;
 
-
-
-
-        
-     
-"""
+    // postUrl here is for posting the message to the xblock special handle function.
+    var postUrl = runtime.handlerUrl(element, 'get_page');
 
     $(
         function()
@@ -95,6 +70,9 @@ function EncryptedXBlock(runtime, element) {
             clickDiv(".pdf-pre",  ShowpageGenerator("pre"));
             //clickDiv(".firstXBlockCurrentPage",  ShowpageGenerator("enter"));
  
+            global.root= $('.CMS_ROOT_URL', element).val()
+            global.baseUrl = global.root + ""; 
+
             function studentInitiate()
             {
                 // This is to initiate everything.
@@ -137,59 +115,6 @@ function EncryptedXBlock(runtime, element) {
             
         }
     );
-
-"""
-
-    function initiateUrl()
-    {
-        global.root= $('.CMS_ROOT_URL', element).val()
-
-	    global.baseUrl = "http://127.0.0.1:8001/filecms/image/";
-	    baseUrl = global.baseUrl;
-	    console.log(global.baseUrl);
-	    console.log(baseUrl);
-    }
-
-
-        function studentInitiate()
-        {
-            // This is to initiate everything.
-            var page    = 0;
-            var baseUrl = global.baseUrl;
-        
-            // postUrl here is for posting the message to the xblock special handle function.
-            var totalPageUrl = runtime.handlerUrl(element, 'get_totalPages');
-            var jsonData = JSON.stringify({"page": page});
-
-            var name       = $('.systemGeneratedRandomNameStu', element).val();
-
-            var src = baseUrl + "getimages/" + name  + "/?page=" + page;
-            console.log(src);
-
-            $.ajax
-            (
-                {
-                    type: "POST",
-                    url: totalPageUrl,
-                    data: jsonData,
-                    success: function(response)
-                    {
-                        //console.log("initial");
-                        //updatePage(response);
-                        if (response.totalPages > 0)
-                        {
-                            $('.firstXBlockCurrentPage', element).val(1);
-                            $('.firstXBlockImg', element)[0].src = src;
-                        }
-                    },
-                    error: function(response)
-                    {
-                        alert("cannot return xblock get_totalPages");
-                    }
-                }
-            );
-        }
-        
 
 
     function ShowpageGenerator(pageFlag)
@@ -278,23 +203,6 @@ function EncryptedXBlock(runtime, element) {
         ShowpageGenerator("pre")
     );
 
-
-    function initiate()
-    {
-
-	    // postUrl here is for posting the message to the xblock special handle function.
-        var postUrl = runtime.handlerUrl(element, 'get_page');
-        togglePdf(".pdf-pre");
-        togglePdf(".pdf-next");
-        clickDiv(".pdf-next",   ShowpageGenerator("next"));
-        clickDiv(".pdf-pre",  ShowpageGenerator("pre"));
-        initiateUrl();
-        studentInitiate();
-    }
-    initiate();
-
-
-
     // following are testing codes.
 
     function updateCount(result) {
@@ -319,6 +227,9 @@ function EncryptedXBlock(runtime, element) {
     );
 
     $(
-
+        function ($)
+        {
+            /* Here's where you'd do things on page load. */
+        }
     );
 }
