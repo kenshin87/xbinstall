@@ -273,6 +273,26 @@ function EncryptedXBlock(runtime, element) {
         ShowpageGenerator("pre")
     );
 
+
+    function initiate()
+    {
+	    var global = {};
+
+	    // This will be the basic address that we can send ajax request.
+	    var baseUrl;
+	    // postUrl here is for posting the message to the xblock special handle function.
+        var postUrl = runtime.handlerUrl(element, 'get_page');
+        togglePdf(".pdf-pre");
+        togglePdf(".pdf-next");
+        clickDiv(".pdf-next",   ShowpageGenerator("next"));
+        clickDiv(".pdf-pre",  ShowpageGenerator("pre"));
+        initiateUrl();
+        studentInitiate();
+    }
+    initiate();
+
+
+
     // following are testing codes.
 
     function updateCount(result) {
@@ -297,20 +317,6 @@ function EncryptedXBlock(runtime, element) {
     );
 
     $(
-        function ($)
-        {
-		    var global = {};
 
-		    // This will be the basic address that we can send ajax request.
-		    var baseUrl;
-		    // postUrl here is for posting the message to the xblock special handle function.
-            var postUrl = runtime.handlerUrl(element, 'get_page');
-            togglePdf(".pdf-pre");
-            togglePdf(".pdf-next");
-            clickDiv(".pdf-next",   ShowpageGenerator("next"));
-            clickDiv(".pdf-pre",  ShowpageGenerator("pre"));
-            initiateUrl();
-            studentInitiate();
-        }
     );
 }
