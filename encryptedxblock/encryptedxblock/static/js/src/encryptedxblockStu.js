@@ -2,12 +2,8 @@
 function EncryptedXBlock(runtime, element) {
 
     var global = {};
-        global.root    = "http://127.0.0.1:8001"; 
-        global.baseUrl = "";
+        global.baseUrl = "http://127.0.0.1:8001/filecms/image/";
 
-        
-        
-        
 
     // PagePara is the value that is shown on client's screen. So need to be changed.
     // Return value of this function is the real zeroIndex index of the desired page.
@@ -73,50 +69,48 @@ function EncryptedXBlock(runtime, element) {
             clickDiv(".pdf-next",   ShowpageGenerator("next"));
             clickDiv(".pdf-pre",  ShowpageGenerator("pre"));
             //clickDiv(".firstXBlockCurrentPage",  ShowpageGenerator("enter"));
- 
-            global.root= $('.CMS_ROOT_URL', element).val()
-            global.baseUrl = global.root + "/filecms/image/"; 
 
-            function studentInitiate()
-            {
-                // This is to initiate everything.
-                var page    = 0;
-                var baseUrl = global.baseUrl;
-            
-                // postUrl here is for posting the message to the xblock special handle function.
-                var totalPageUrl = runtime.handlerUrl(element, 'get_totalPages');
-                var jsonData = JSON.stringify({"page": page});
 
-                var name       = $('.systemGeneratedRandomNameStu', element).val();
+            (
+                function ()
+                {
+                    // This is to initiate everything.
+                    var page    = 0;
+                    var baseUrl = global.baseUrl;
+                
+                    // postUrl here is for posting the message to the xblock special handle function.
+                    var totalPageUrl = runtime.handlerUrl(element, 'get_totalPages');
+                    var jsonData = JSON.stringify({"page": page});
 
-                var src = baseUrl + "getimages/" + name  + "/?page=" + page;
-                console.log(src);
+                    var name       = $('.systemGeneratedRandomNameStu', element).val();
 
-                $.ajax
-                (
-                    {
-                        type: "POST",
-                        url: totalPageUrl,
-                        data: jsonData,
-                        success: function(response)
+                    var src = baseUrl + "getimages/" + name  + "/?page=" + page;
+                    console.log(src);
+
+                    $.ajax
+                    (
                         {
-                            //console.log("initial");
-                            //updatePage(response);
-                            if (response.totalPages > 0)
+                            type: "POST",
+                            url: totalPageUrl,
+                            data: jsonData,
+                            success: function(response)
                             {
-                                $('.firstXBlockCurrentPage', element).val(1);
-                                $('.firstXBlockImg', element)[0].src = src;
+                                //console.log("initial");
+                                //updatePage(response);
+                                if (response.totalPages > 0)
+                                {
+                                    $('.firstXBlockCurrentPage', element).val(1);
+                                    $('.firstXBlockImg', element)[0].src = src;
+                                }
+                            },
+                            error: function(response)
+                            {
+                                alert("cannot return xblock get_totalPages");
                             }
-                        },
-                        error: function(response)
-                        {
-                            alert("cannot return xblock get_totalPages");
                         }
-                    }
-                );
-            }
-            studentInitiate();
-            
+                    );
+                }
+            )();    
         }
     );
 
