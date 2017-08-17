@@ -38,9 +38,11 @@ function EncryptedXBlock(runtime, element) {
 
     // This will be the basic address that we can send ajax request.
     var baseUrl;
-
-
-
+    global.baseUrl = "http://127.0.0.1:8001/filecms/image/";
+    baseUrl = global.baseUrl;
+    console.log(global.baseUrl);
+    console.log(baseUrl);
+    //global.root= $('.CMS_ROOT_URL', element).val()
     // postUrl here is for posting the message to the xblock special handle function.
     var postUrl = runtime.handlerUrl(element, 'get_page');
         
@@ -50,12 +52,6 @@ function EncryptedXBlock(runtime, element) {
     $(
         function()
         {
-            global.root= $('.CMS_ROOT_URL', element).val()
-            global.baseUrl = "http://127.0.0.1:8001/filecms/image/";
-            baseUrl = global.baseUrl;
-
-
-
             function togglePdf(a)
             {
                 $(a).hover
@@ -84,16 +80,7 @@ function EncryptedXBlock(runtime, element) {
             clickDiv(".pdf-next",   ShowpageGenerator("next"));
             clickDiv(".pdf-pre",  ShowpageGenerator("pre"));
             //clickDiv(".firstXBlockCurrentPage",  ShowpageGenerator("enter"));
-            
-
-            
-
-            global.baseUrl = global.root + "/filecms/image/"; 
-            baseUrl = global.baseUrl;
-            console.log(global.baseUrl);
-            console.log(baseUrl);
-           
-
+ 
             function studentInitiate()
             {
                 // This is to initiate everything.
