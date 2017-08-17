@@ -61,7 +61,7 @@ function EncryptedXBlock(runtime, element) {
             );            
         }
 
-        setCMS_ROOT_URL();
+        
 
         function ajaxUpload (eventObject)
         {
@@ -298,10 +298,11 @@ function EncryptedXBlock(runtime, element) {
             );
         }
     );
+    
     $(function ($) {
         /* Here"s where you"d do things on page load. */
 
-      
+      setCMS_ROOT_URL();
 
 
     });
