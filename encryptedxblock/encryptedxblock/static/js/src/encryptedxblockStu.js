@@ -1,19 +1,6 @@
 /* Javascript for EncryptedXBlock. */
 function EncryptedXBlock(runtime, element) {
 
-    var global = {};
-        global.root    = "http://127.0.0.1:8001"; 
-        global.baseUrl = "";
-
-    // This will be the basic address that we can send ajax request.
-    var baseUrl = "";
-
-    // postUrl here is for posting the message to the xblock special handle function.
-    var postUrl = runtime.handlerUrl(element, 'get_page');
-        
-        
-        
-
     // PagePara is the value that is shown on client's screen. So need to be changed.
     // Return value of this function is the real zeroIndex index of the desired page.
     function getZeroIndexPage(pagePara, totalPagesPara) //totalPagesPara here is shown in web page
@@ -31,8 +18,6 @@ function EncryptedXBlock(runtime, element) {
         else                                      {return pagePara;         }
     }
 
-
-
     // update count and page number
     function updateCount(response) 
     {
@@ -43,9 +28,34 @@ function EncryptedXBlock(runtime, element) {
         $('.firstXBlockCurrentPage', element)[0].value = response.page + 1;            
     }
 
+
+
+
+
+
+
+    var global = {};
+
+    // This will be the basic address that we can send ajax request.
+    var baseUrl;
+
+
+
+    // postUrl here is for posting the message to the xblock special handle function.
+    var postUrl = runtime.handlerUrl(element, 'get_page');
+        
+     
+
+
     $(
         function()
         {
+            global.root= $('.CMS_ROOT_URL', element).val()
+            global.baseUrl = "http://127.0.0.1:8001/filecms/image/";
+            baseUrl = global.baseUrl;
+
+
+
             function togglePdf(a)
             {
                 $(a).hover
@@ -74,12 +84,16 @@ function EncryptedXBlock(runtime, element) {
             clickDiv(".pdf-next",   ShowpageGenerator("next"));
             clickDiv(".pdf-pre",  ShowpageGenerator("pre"));
             //clickDiv(".firstXBlockCurrentPage",  ShowpageGenerator("enter"));
- 
-            global.root= $('.CMS_ROOT_URL', element).val()
+            
+
+            
 
             global.baseUrl = global.root + "/filecms/image/"; 
             baseUrl = global.baseUrl;
-            
+            console.log(global.baseUrl);
+            console.log(baseUrl);
+           
+
             function studentInitiate()
             {
                 // This is to initiate everything.
