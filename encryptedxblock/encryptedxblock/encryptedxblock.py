@@ -137,7 +137,6 @@ class EncryptedXBlock(XBlock):
     @XBlock.json_handler
     def increment_count(self, data, suffix=''):
         assert data['hello'] == 'world'
-        self.count += 1
         return {"count": self.count}
 
     # in js, we start by getting the firstPage and initialize the total page
