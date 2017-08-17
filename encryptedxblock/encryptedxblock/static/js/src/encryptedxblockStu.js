@@ -1,6 +1,11 @@
 /* Javascript for EncryptedXBlock. */
 function EncryptedXBlock(runtime, element) {
 
+	    var global = {};
+
+	    // This will be the basic address that we can send ajax request.
+	    var baseUrl;
+
     // PagePara is the value that is shown on client's screen. So need to be changed.
     // Return value of this function is the real zeroIndex index of the desired page.
     function getZeroIndexPage(pagePara, totalPagesPara) //totalPagesPara here is shown in web page
@@ -276,10 +281,7 @@ function EncryptedXBlock(runtime, element) {
 
     function initiate()
     {
-	    var global = {};
 
-	    // This will be the basic address that we can send ajax request.
-	    var baseUrl;
 	    // postUrl here is for posting the message to the xblock special handle function.
         var postUrl = runtime.handlerUrl(element, 'get_page');
         togglePdf(".pdf-pre");
