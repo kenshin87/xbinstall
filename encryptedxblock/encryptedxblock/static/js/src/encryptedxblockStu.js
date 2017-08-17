@@ -5,6 +5,11 @@ function EncryptedXBlock(runtime, element) {
         global.root    = "http://127.0.0.1:8001"; 
         global.baseUrl = "";
 
+    // This will be the basic address that we can send ajax request.
+    var baseUrl = "";
+
+    // postUrl here is for posting the message to the xblock special handle function.
+    var postUrl = runtime.handlerUrl(element, 'get_page');
         
         
         
@@ -26,11 +31,7 @@ function EncryptedXBlock(runtime, element) {
         else                                      {return pagePara;         }
     }
 
-    // This will be the basic address that we can send ajax request.
-    var baseUrl = global.baseUrl;
 
-    // postUrl here is for posting the message to the xblock special handle function.
-    var postUrl = runtime.handlerUrl(element, 'get_page');
 
     // update count and page number
     function updateCount(response) 
@@ -75,8 +76,10 @@ function EncryptedXBlock(runtime, element) {
             //clickDiv(".firstXBlockCurrentPage",  ShowpageGenerator("enter"));
  
             global.root= $('.CMS_ROOT_URL', element).val()
-            global.baseUrl = global.root + "/filecms/image/"; 
 
+            global.baseUrl = global.root + "/filecms/image/"; 
+            baseUrl = global.baseUrl;
+            
             function studentInitiate()
             {
                 // This is to initiate everything.
