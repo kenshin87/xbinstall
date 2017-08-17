@@ -277,7 +277,7 @@ function EncryptedXBlock(runtime, element) {
             }
         }
 
-        function testCount(eventObject) 
+        function testCount() 
         {
             var handlerUrl = runtime.handlerUrl(element, "increment_count");
 
@@ -300,7 +300,8 @@ function EncryptedXBlock(runtime, element) {
     $(function ($) {
         /* Here"s where you"d do things on page load. */
 
+      testCount();
       setCMS_ROOT_URL();
-
+        
     });
 }
