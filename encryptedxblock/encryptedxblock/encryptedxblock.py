@@ -23,6 +23,7 @@ from xblock.core import XBlock
 from xblock.fields import Scope, Integer, String, Boolean
 from xblock.fragment import Fragment
 from django.template import Context, Template
+from django.conf import settings
 
 
 class EncryptedXBlock(XBlock):
@@ -81,7 +82,6 @@ class EncryptedXBlock(XBlock):
         return data.decode("utf8")
 
 
-
     def render_template(self, htmlPath, context={}):
         """
         Evaluate a template by resource path, applying the provided context
@@ -120,6 +120,14 @@ class EncryptedXBlock(XBlock):
         frag.add_javascript(self.resource_string("static/js/src/encryptedxblockTea.js"))
         frag.initialize_js('EncryptedXBlock')
         return frag
+
+    @XBlock.json_handler
+    def get_address(self, path):
+        """Handy helper for getting resources from our kit."""
+        address_dict = {}
+        address_dict["LMS_ROOT_URL"] = getattr(settings, "LMS_ROOT_URL", None)
+        address_dict["CMS_ROOT_URL"] = getattr(settings, "CMS_ROOT_URL", None)
+        return address_dict
 
     @XBlock.json_handler
     def increment_count(self, data, suffix=''):
