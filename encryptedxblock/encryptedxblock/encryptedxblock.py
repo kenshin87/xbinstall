@@ -127,7 +127,7 @@ class EncryptedXBlock(XBlock):
         return frag
 
     @XBlock.json_handler
-    def get_address(self):
+    def get_address(self, data, suffix=''):
         """Handy helper for getting resources from our kit."""
         address_dict = {}
         address_dict["LMS_ROOT_URL"] = getattr(settings, "LMS_ROOT_URL", None)

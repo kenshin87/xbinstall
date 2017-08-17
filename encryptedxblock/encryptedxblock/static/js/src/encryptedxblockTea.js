@@ -277,10 +277,31 @@ function EncryptedXBlock(runtime, element) {
             }
         }
 
+
+
+        function setCMS_ROOT_URL()
+        {
+            var postUrl = runtime.handlerUrl(element, "get_address");
+            $.ajax
+            (
+                {
+                    type: "POST",
+                    url: postUrl,
+                    data: JSON.stringify({"getAddress": "getAddress"}),
+                    success: function(responseData)
+                    {
+                        window.ddd = responseData;
+                        alert("suc");
+                    },               
+                }
+            );            
+        }
+
+
+
         function testCount() 
         {
             var handlerUrl = runtime.handlerUrl(element, "increment_count");
-
             $.ajax
             (
                 {
@@ -291,7 +312,7 @@ function EncryptedXBlock(runtime, element) {
                     {
                         window.bbb = responseData;
                         console.log("right situation");
-                    }
+                    },
                 }
             );
         }
