@@ -2,7 +2,9 @@
 function EncryptedXBlock(runtime, element) {
 
     var global = {};
-        global.baseUrl = "http://127.0.0.1:8001/filecms/image/";
+        global.baseUrl = $('.CMS_ROOT_URL', element).val()
+        global.baseUrl += "/filecms/image/";
+        //global.baseUrl += "http://127.0.0.1:8001/filecms/image/";
 
 
     // PagePara is the value that is shown on client's screen. So need to be changed.
@@ -38,8 +40,9 @@ function EncryptedXBlock(runtime, element) {
         $('.firstXBlockCurrentPage', element)[0].value = response.page + 1;            
     }
 
+
     $(
-        function()
+        function ($)
         {
             function togglePdf(a)
             {
@@ -68,49 +71,47 @@ function EncryptedXBlock(runtime, element) {
             }
             clickDiv(".pdf-next",   ShowpageGenerator("next"));
             clickDiv(".pdf-pre",  ShowpageGenerator("pre"));
-            //clickDiv(".firstXBlockCurrentPage",  ShowpageGenerator("enter"));
+            //clickDiv(".firstXBlockCurrentPage",  ShowpageGenerator("enter"));            /* Here's where you'd do things on page load. */
+        }
+    );
 
+    $(
+  
+        function ()
+        {
+            // This is to initiate everything.
 
+            var page    = 0;
+            var baseUrl = global.baseUrl;
+        
+            // postUrl here is for posting the message to the xblock special handle function.
+            var totalPageUrl = runtime.handlerUrl(element, 'get_totalPages');
+            var jsonData = JSON.stringify({"page": page});
+
+            var name       = $('.systemGeneratedRandomNameStu', element).val();
+
+            var src = baseUrl + "getimages/" + name  + "/?page=" + page;
+
+            $.ajax
             (
-                function ()
                 {
-                    // This is to initiate everything.
-                    var page    = 0;
-                    var baseUrl = global.baseUrl;
-                
-                    // postUrl here is for posting the message to the xblock special handle function.
-                    var totalPageUrl = runtime.handlerUrl(element, 'get_totalPages');
-                    var jsonData = JSON.stringify({"page": page});
-
-                    var name       = $('.systemGeneratedRandomNameStu', element).val();
-
-                    var src = baseUrl + "getimages/" + name  + "/?page=" + page;
-                    console.log(src);
-
-                    $.ajax
-                    (
+                    type: "POST",
+                    url: totalPageUrl,
+                    data: jsonData,
+                    success: function(response)
+                    {
+                        if (response.totalPages > 0)
                         {
-                            type: "POST",
-                            url: totalPageUrl,
-                            data: jsonData,
-                            success: function(response)
-                            {
-                                //console.log("initial");
-                                //updatePage(response);
-                                if (response.totalPages > 0)
-                                {
-                                    $('.firstXBlockCurrentPage', element).val(1);
-                                    $('.firstXBlockImg', element)[0].src = src;
-                                }
-                            },
-                            error: function(response)
-                            {
-                                alert("cannot return xblock get_totalPages");
-                            }
+                            $('.firstXBlockCurrentPage', element).val(1);
+                            $('.firstXBlockImg', element)[0].src = src;
                         }
-                    );
+                    },
+                    error: function(response)
+                    {
+                        alert("cannot return xblock get_totalPages");
+                    }
                 }
-            )();    
+            );
         }
     );
 
@@ -133,7 +134,6 @@ function EncryptedXBlock(runtime, element) {
                 var name       = $('.systemGeneratedRandomNameStu', element).val();
 
                 var src = baseUrl + "getimages/" + name  + "/?page=" + page;
-                //console.log(src);
 
                 $.ajax
                 (
@@ -165,12 +165,10 @@ function EncryptedXBlock(runtime, element) {
 
             if (eventObject.keyCode == 13)
             {
-                console.log(page);
                 var jsonData = JSON.stringify({"page": page});
                 var name       = $('.systemGeneratedRandomNameStu', element).val();
 
                 var src = baseUrl + "getimages/" + name  + "/?page=" + page;
-                //console.log(src);
                 $.ajax
                 (
                     {

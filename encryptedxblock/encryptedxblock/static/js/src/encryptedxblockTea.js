@@ -258,11 +258,6 @@ function EncryptedXBlock(runtime, element) {
             }
         }
 
-
-
-
-
-
         function testCount() 
         {
             var handlerUrl = runtime.handlerUrl(element, "increment_count");
@@ -280,7 +275,6 @@ function EncryptedXBlock(runtime, element) {
                 }
             );
         }
-
 
 
     $(function ($) {
