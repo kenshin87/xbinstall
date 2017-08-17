@@ -128,10 +128,12 @@ class EncryptedXBlock(XBlock):
 
     @XBlock.json_handler
     def get_address(self, data, suffix=''):
+
         """Handy helper for getting resources from our kit."""
         address_dict = {}
         address_dict["LMS_ROOT_URL"] = getattr(settings, "LMS_ROOT_URL", None)
         address_dict["CMS_ROOT_URL"] = getattr(settings, "CMS_ROOT_URL", None)
+        self.CMS_ROOT_URL = address_dict["CMS_ROOT_URL"]
         return address_dict
 
     @XBlock.json_handler

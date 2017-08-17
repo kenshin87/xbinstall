@@ -2,7 +2,8 @@
 function EncryptedXBlock(runtime, element) {
 
     var global = {};
-        global.baseUrl = "http://127.0.0.1:8001/filecms/image/";
+        global.root    = "http://127.0.0.1:8001"; 
+        global.baseUrl = "";
 
         
         
@@ -72,7 +73,9 @@ function EncryptedXBlock(runtime, element) {
             clickDiv(".pdf-next",   ShowpageGenerator("next"));
             clickDiv(".pdf-pre",  ShowpageGenerator("pre"));
             //clickDiv(".firstXBlockCurrentPage",  ShowpageGenerator("enter"));
-
+ 
+            global.root= $('.CMS_ROOT_URL', element).val()
+            global.baseUrl = global.root + "/filecms/image/"; 
 
             function studentInitiate()
             {

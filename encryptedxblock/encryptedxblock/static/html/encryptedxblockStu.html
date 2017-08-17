@@ -38,7 +38,7 @@
         {% if  allow_download %}
              <a href="http://127.0.0.1:8001/filecms/download/{{ presufFileName }}" download>下载文件</a>
         {% endif %}
-        <input class = "CMS_ROOT_URL" type = "text" hidden>
+        <input class = "CMS_ROOT_URL" type = "text" value = {self.CMS_ROOT_URL}>
     </div>
     <div>
         <input class = "systemGeneratedRandomNameStu" value = {self.systemGeneratedRandomName} hidden><!-- after successfully uploading the file, the name should be here -->    

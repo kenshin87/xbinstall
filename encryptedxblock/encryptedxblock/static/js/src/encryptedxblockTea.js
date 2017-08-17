@@ -26,42 +26,23 @@ function EncryptedXBlock(runtime, element) {
         ajaxUpload
     );
 
+
         function setCMS_ROOT_URL()
         {
-            // renew CMS_ROOT_URL
-
             var postUrl = runtime.handlerUrl(element, "get_address");
-            
-            /*
-            var jsonData = JSON.stringify(
-                    {
-                        "systemGeneratedRandomName": preSystemGeneratedRandomName, 
-                        "displayName": firstXBlockTeaDisplayName,
-                        "presufFileName":presufFileName,
-                        "allowDownload":allowDownload,
-                    }
-                );
-            */
             $.ajax
             (
                 {
                     type: "POST",
                     url: postUrl,
-                    //data: jsonData,
+                    data: JSON.stringify({"getAddress": "getAddress"}),
                     success: function(responseData)
                     {
-                        window.ddd = responseData;
-                        alert("suc");
-                    },
-                    error: function(responseData)
-                    {
-                        window.ddd = responseData;
-                        console.log("err");
-                    }                    
+                        //console.log("suc");
+                    },               
                 }
             );            
         }
-
         
 
         function ajaxUpload (eventObject)
@@ -279,23 +260,6 @@ function EncryptedXBlock(runtime, element) {
 
 
 
-        function setCMS_ROOT_URL()
-        {
-            var postUrl = runtime.handlerUrl(element, "get_address");
-            $.ajax
-            (
-                {
-                    type: "POST",
-                    url: postUrl,
-                    data: JSON.stringify({"getAddress": "getAddress"}),
-                    success: function(responseData)
-                    {
-                        window.ddd = responseData;
-                        alert("suc");
-                    },               
-                }
-            );            
-        }
 
 
 
@@ -318,10 +282,11 @@ function EncryptedXBlock(runtime, element) {
         }
 
 
+
     $(function ($) {
         /* Here"s where you"d do things on page load. */
 
-      testCount();
+      //testCount();
       setCMS_ROOT_URL();
         
     });
