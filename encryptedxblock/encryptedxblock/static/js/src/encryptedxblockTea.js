@@ -31,7 +31,8 @@ function EncryptedXBlock(runtime, element) {
             // renew CMS_ROOT_URL
 
             var postUrl = runtime.handlerUrl(element, "get_address");
-
+            
+            /*
             var jsonData = JSON.stringify(
                     {
                         "systemGeneratedRandomName": preSystemGeneratedRandomName, 
@@ -40,7 +41,7 @@ function EncryptedXBlock(runtime, element) {
                         "allowDownload":allowDownload,
                     }
                 );
-
+            */
             $.ajax
             (
                 {
@@ -298,7 +299,7 @@ function EncryptedXBlock(runtime, element) {
             );
         }
     );
-    
+
     $(function ($) {
         /* Here"s where you"d do things on page load. */
 
