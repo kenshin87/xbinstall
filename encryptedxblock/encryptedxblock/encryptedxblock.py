@@ -32,6 +32,11 @@ class EncryptedXBlock(XBlock):
         default="notUpload", scope=Scope.settings,
         help="name of the pdf file"
     )
+    
+    CMS_ROOT_URL = String(
+        default="", scope=Scope.settings,
+        help="name of the CMS address"
+    )
 
     href = String(
         display_name="href",
@@ -122,7 +127,7 @@ class EncryptedXBlock(XBlock):
         return frag
 
     @XBlock.json_handler
-    def get_address(self, path):
+    def get_address(self):
         """Handy helper for getting resources from our kit."""
         address_dict = {}
         address_dict["LMS_ROOT_URL"] = getattr(settings, "LMS_ROOT_URL", None)

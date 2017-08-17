@@ -4,6 +4,9 @@ function EncryptedXBlock(runtime, element) {
     var global = {};
         global.baseUrl = "http://127.0.0.1:8001/filecms/image/";
 
+        
+        
+        
 
     // PagePara is the value that is shown on client's screen. So need to be changed.
     // Return value of this function is the real zeroIndex index of the desired page.
@@ -71,46 +74,46 @@ function EncryptedXBlock(runtime, element) {
             //clickDiv(".firstXBlockCurrentPage",  ShowpageGenerator("enter"));
 
 
-            (
-                function ()
-                {
-                    // This is to initiate everything.
-                    var page    = 0;
-                    var baseUrl = global.baseUrl;
-                
-                    // postUrl here is for posting the message to the xblock special handle function.
-                    var totalPageUrl = runtime.handlerUrl(element, 'get_totalPages');
-                    var jsonData = JSON.stringify({"page": page});
+            function studentInitiate()
+            {
+                // This is to initiate everything.
+                var page    = 0;
+                var baseUrl = global.baseUrl;
+            
+                // postUrl here is for posting the message to the xblock special handle function.
+                var totalPageUrl = runtime.handlerUrl(element, 'get_totalPages');
+                var jsonData = JSON.stringify({"page": page});
 
-                    var name       = $('.systemGeneratedRandomNameStu', element).val();
+                var name       = $('.systemGeneratedRandomNameStu', element).val();
 
-                    var src = baseUrl + "getimages/" + name  + "/?page=" + page;
-                    console.log(src);
+                var src = baseUrl + "getimages/" + name  + "/?page=" + page;
+                console.log(src);
 
-                    $.ajax
-                    (
+                $.ajax
+                (
+                    {
+                        type: "POST",
+                        url: totalPageUrl,
+                        data: jsonData,
+                        success: function(response)
                         {
-                            type: "POST",
-                            url: totalPageUrl,
-                            data: jsonData,
-                            success: function(response)
+                            //console.log("initial");
+                            //updatePage(response);
+                            if (response.totalPages > 0)
                             {
-                                //console.log("initial");
-                                //updatePage(response);
-                                if (response.totalPages > 0)
-                                {
-                                    $('.firstXBlockCurrentPage', element).val(1);
-                                    $('.firstXBlockImg', element)[0].src = src;
-                                }
-                            },
-                            error: function(response)
-                            {
-                                alert("cannot return xblock get_totalPages");
+                                $('.firstXBlockCurrentPage', element).val(1);
+                                $('.firstXBlockImg', element)[0].src = src;
                             }
+                        },
+                        error: function(response)
+                        {
+                            alert("cannot return xblock get_totalPages");
                         }
-                    );
-                }
-            )();    
+                    }
+                );
+            }
+            studentInitiate();
+            
         }
     );
 
