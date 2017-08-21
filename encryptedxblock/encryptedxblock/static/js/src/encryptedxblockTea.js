@@ -263,7 +263,9 @@ function EncryptedXBlock(runtime, element) {
         // Argument response here is just a string of " {"result": {"file_url": "asdasdasd.pdf"}} "
         function testchangeName(response) 
         {
+
             console.log("enter testchangeName");
+            window.def = response;
             // renew the systemGeneratedRandomName and displayName inside xblock;
             // response here is string:
             //       '{systemGeneratedRandomName: "1498633479623217", "displayName":"加密pdf"}'
@@ -302,7 +304,7 @@ function EncryptedXBlock(runtime, element) {
                         $(".systemGeneratedRandomNameTea", element).val(preSystemGeneratedRandomName);
                         $(".firstXBlockTeaDisplayName", element).val(firstXBlockTeaDisplayName);
                         runtime.notify('save', {state: 'end'});
-                        testinitiatePage();
+                        //testinitiatePage();
                     },
                     error: function(response)
                     {
@@ -361,7 +363,7 @@ function EncryptedXBlock(runtime, element) {
             var baseUrl    = global.baseUrl;
             var getUrl     = baseUrl + "getimagesquantity/";
             var jsonData   = {"imageFolder": name};
-
+            console.log(jsonData);
             $.ajax
             (
                 {
