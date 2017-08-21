@@ -26,15 +26,37 @@ from django.template import Context, Template
 from django.conf import settings
 
 
+
+
+
+
+
+
+def getAddress():
+    address_dict = {}
+    address_dict["LMS_ROOT_URL"] = getattr(settings, "LMS_ROOT_URL", None)
+    address_dict["CMS_ROOT_URL"] = getattr(settings, "CMS_ROOT_URL", None)
+    return address_dict
+
+
 class EncryptedXBlock(XBlock):
+
+
+
 
     systemGeneratedRandomName = String(
         default="notUpload", scope=Scope.settings,
         help="name of the pdf file"
     )
     
+
+    LMS_ROOT_URL = String(
+        default=getAddress()["LMS_ROOT_URL"], scope=Scope.settings,
+        help="name of the LMS address"
+    )
+
     CMS_ROOT_URL = String(
-        default="", scope=Scope.settings,
+        default=getAddress()["CMS_ROOT_URL"], scope=Scope.settings,
         help="name of the CMS address"
     )
 
@@ -102,7 +124,7 @@ class EncryptedXBlock(XBlock):
         when viewing courses.
         """
 
-        context = {"allow_download":self.allow_download, "presufFileName":self.presufFileName}
+        context = {"allow_download":self.allow_download, "presufFileName":self.presufFileName, "CMS_ROOT_URL":self.CMS_ROOT_URL}
 
 
         #html = self.resource_string("static/html/encryptedxblockStu.html")
@@ -126,15 +148,7 @@ class EncryptedXBlock(XBlock):
         frag.initialize_js('EncryptedXBlock')
         return frag
 
-    @XBlock.json_handler
-    def get_address(self, data, suffix=''):
 
-        """Handy helper for getting resources from our kit."""
-        address_dict = {}
-        address_dict["LMS_ROOT_URL"] = getattr(settings, "LMS_ROOT_URL", None)
-        address_dict["CMS_ROOT_URL"] = getattr(settings, "CMS_ROOT_URL", None)
-        self.CMS_ROOT_URL = address_dict["CMS_ROOT_URL"]
-        return address_dict
 
     @XBlock.json_handler
     def increment_count(self, data, suffix=''):
@@ -172,6 +186,9 @@ class EncryptedXBlock(XBlock):
         self.count += 1
         # print self.page
         return {"count": self.count, "page": self.page, "totalPages": self.totalPages}
+
+
+
 
     @XBlock.json_handler
     def renewFile(self, data, suffix=''):

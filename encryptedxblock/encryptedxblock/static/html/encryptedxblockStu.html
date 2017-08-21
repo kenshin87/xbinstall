@@ -36,7 +36,7 @@
        <!--here is pure django data. We don't want to mix the template with--> 
     <div>       
         {% if  allow_download %}
-             <a href="http://127.0.0.1:8001/filecms/download/{{ presufFileName }}" download>下载文件</a>
+             <a href="{{CMS_ROOT_URL}}/filecms/download/{{ presufFileName }}" download>下载文件</a>
         {% endif %}
         <input class = "CMS_ROOT_URL" type = "text" hidden value = {self.CMS_ROOT_URL}>
     </div>
