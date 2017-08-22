@@ -4,6 +4,7 @@ function EncryptedXBlock(runtime, element) {
     var global = {};
         global.baseUrl = $('.CMS_ROOT_URL', element).val()
         global.baseUrl += "/filecms/image/";
+        
         //global.baseUrl += "http://127.0.0.1:8001/filecms/image/";
 
 
