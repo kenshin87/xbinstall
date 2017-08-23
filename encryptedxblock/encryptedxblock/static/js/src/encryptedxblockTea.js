@@ -54,13 +54,13 @@ function EncryptedXBlock(runtime, element) {
             if ( $(".file-upload", element)[0].files.length == 0 )
             {
                 eventObject.preventDefault();
-                $(".noUploadWarning", element).css("background-color", "#f11")
+                $(".noUploadWarning", element).css("color", "#f11")
                 $(".noUploadWarning", element).text("请先点击“选择文件”按钮选择一个文档文件");
             }
             else if ( $(".firstXBlockTeaDisplayName", element).val() == "文档预览" )
             {
                 eventObject.preventDefault();
-                $(".noFileNameWarning", element).css("background-color", "#f11")
+                $(".noFileNameWarning", element).css("color", "#f11")
                 $(".noFileNameWarning", element).text("请先更改文档的文件名");
             }
 
@@ -77,7 +77,7 @@ function EncryptedXBlock(runtime, element) {
                    )
                 {
                     eventObject.preventDefault();
-                    $(".noUploadWarning", element).css("background-color", "#f11")
+                    $(".noUploadWarning", element).css("color", "#f11")
                     $(".noUploadWarning", element).text("只支持ppt, excel, word, pdf文件的上传！");
                 }
                 else
@@ -98,13 +98,13 @@ function EncryptedXBlock(runtime, element) {
             if ( $(".file-upload", element)[0].files.length == 0 )
             {
                 eventObject.preventDefault();
-                $(".noUploadWarning", element).css("background-color", "#f11")
+                $(".noUploadWarning", element).css("color", "#f11")
                 $(".noUploadWarning", element).text("请先点击“选择文件”按钮选择一个文档文件");
             }
             else if ( $(".firstXBlockTeaDisplayName", element).val() == "文档预览" )
             {
                 eventObject.preventDefault();
-                $(".noFileNameWarning", element).css("background-color", "#f11")
+                $(".noFileNameWarning", element).css("color", "#f11")
                 $(".noFileNameWarning", element).text("请先更改文档的文件名");
             }
 
@@ -121,7 +121,7 @@ function EncryptedXBlock(runtime, element) {
                    )
                 {
                     eventObject.preventDefault();
-                    $(".noUploadWarning", element).css("background-color", "#f11")
+                    $(".noUploadWarning", element).css("color", "#f11")
                     $(".noUploadWarning", element).text("只支持ppt, excel, word, pdf文件的上传！");
                 }
                 else
@@ -161,7 +161,7 @@ function EncryptedXBlock(runtime, element) {
 
                     error: function(response)
                     {
-                        $(".noUploadWarning", element).css("background-color", "#f11");
+                        $(".noUploadWarning", element).css("color", "#f11");
                         $(".noUploadWarning", element).text("最大只支持100页以下文档的上传！");
                         runtime.notify('error', {msg: "文件上传失败，请联系网站管理员。"})
                     }
@@ -198,7 +198,7 @@ function EncryptedXBlock(runtime, element) {
 
                     error: function(response)
                     {
-                        $(".noUploadWarning", element).css("background-color", "#f11");
+                        $(".noUploadWarning", element).css("color", "#f11");
                         $(".noUploadWarning", element).text("最大只支持100页以下文档的上传！");
                         runtime.notify('error', {msg: "文件上传失败，请联系网站管理员。"})
                     }
